@@ -29,6 +29,8 @@ public class CharacterControl : MonoBehaviour
         cam = GameObject.Find("Main Camera");
         sprintTimer = maxSprint;
         myRigidbody = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
+        
     }
 
     // Update is called once per frame
@@ -36,6 +38,8 @@ public class CharacterControl : MonoBehaviour
     {
         //transform.position = transform.position + (transform.forward * Input.GetAxis("Vertical") * maxSpeed);
         //transform.position = transform.position + (transform.right * Input.GetAxis("Horizontal") * maxSpeed);
+
+        isOnGround = Physics.CheckSphere(groundChecker.transform.position, 0.1f, groundLayer);
 
         Vector3 newVelocity = transform.forward * Input.GetAxis("Vertical") * maxSpeed;
         Vector3 newVelocity2 = transform.right * Input.GetAxis("Horizontal") * maxSpeed;
