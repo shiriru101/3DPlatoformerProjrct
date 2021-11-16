@@ -25,12 +25,12 @@ public class CharacterControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         isOnGround = Physics.CheckSphere(groundChecker.transform.position, 0.1f, groundLayer);
         cam = GameObject.Find("Main Camera");
         sprintTimer = maxSprint;
         myRigidbody = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
-        
+                
     }
 
     // Update is called once per frame
@@ -50,7 +50,9 @@ public class CharacterControl : MonoBehaviour
         rotation = rotation + Input.GetAxis("Mouse X") * rotationSpeed;
         transform.rotation = Quaternion.Euler(new Vector3(0.0f, rotation, 0.0f));
 
-        camRotation = camRotation + Input.GetAxis("Mouse Y") * camRotationSpeed;
+        //camRotation = camRotation + Input.GetAxis("Mouse Y") * camRotationSpeed;
+        camRotation = Mathf.Clamp(camRotation, -15.0f, 15.0f);
+
         cam.transform.localRotation = Quaternion.Euler(new Vector3(-camRotation, 0.0f, 0.0f));
 
         if (isOnGround == true && Input.GetKeyDown(KeyCode.Space)) 
